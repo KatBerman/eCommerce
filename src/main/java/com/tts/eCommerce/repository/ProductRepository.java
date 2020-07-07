@@ -11,6 +11,6 @@ import com.tts.eCommerce.model.Product;
 public interface ProductRepository extends CrudRepository<Product, Long> {
 	List<Product> findAll();
 	List<Product> findByBrand(String brand);
-	List<Product> findByName(String name);
+	Product findByName(String name);
 
 }
