@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="ISO-8859-1">
+<title>TTS eCommerce | New Product</title>
+<link th:replace="fragments/head">
+</head>
+
+<!-- Body content pulled from Twitter build (templates/newTweet) -->
+
+<body> 
+	<div class="container-fluid">
+		<div th:replace="fragments/navbar"></div>
+		<div class="jumbotron">
+			<h2>Add a New Product</h2>
+			<form th:action="@{/products/new}" th:object="${product}" method="post" autocomplete="off">
+				
+				<div class="form-group">
+					<label th:if="${#fields.hasErrors('image')}" class="validation-message"></label>
+					<input type="image" th:field=*{image} placeholder="Product Image" class="form-control"></input>
+					<label th:if="${#fields.hasErrors('name')}" class="validation-message"></label>
+					<input type="text" th:field=*{name} placeholder="Product Name" class="form-control"></input>
+					<label th:if="${#fields.hasErrors('category')}" class="validation-message"></label>
+					<input type="text" th:field=*{category} placeholder="Product Category" class="form-control"></input>
+					<label th:if="${#fields.hasErrors('brand')}" class="validation-message"></label>
+					<input type="text" th:field=*{brand} placeholder="Product Brand" class="form-control"></input>
+					<label th:if="${#fields.hasErrors('price')}" class="validation-message"></label>
+					<input type="number" min="0" th:field=*{price} placeholder="Product Price" class="form-control"></input>
+					<label th:if="${#fields.hasErrors('description')}" class="validation-message"></label>
+					<textarea rows="2" th:field=*{description} placeholder="Product Description" class="form-control"></textarea>
+				</div>
+				<button class="btn btn-sm btn-success btn-block" type="submit" name="submit" value="submit">Sell It!</button>
+			</form>
+			
+			<!-- Need to update - message set in AuthorizationController. Also need to set methods to create new product?
+			
+			<div th:if="${successMessage}">
+				<h3>
+					<span class="text-success" th:utext="${successMessage}"></span>
+				</h3>
+			</div> -->
+			
+		</div>
+	</div>
+	<script th:replace="fragments/scripts"></script>
+</body>
+
+</html>
