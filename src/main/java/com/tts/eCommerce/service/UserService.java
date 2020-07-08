@@ -7,12 +7,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.tts.eCommerce.model.Role;
 import com.tts.eCommerce.model.User;
 import com.tts.eCommerce.repository.RoleRepository;
 import com.tts.eCommerce.repository.UserRepository;
 
+@Service
 public class UserService {
 	@Autowired
 	private UserRepository userRepository;
