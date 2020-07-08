@@ -1,5 +1,6 @@
 package com.tts.eCommerce.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,22 +19,37 @@ public class ProductService {
 		return productRepository.findAll();
 	}
 	
-	public List<Product> findByBrand(String brand) {
-		List<Product> products = productRepository.findByBrand(brand);
-		return products; 
+	public Product findById(long id) {
+		return productRepository.findById(id);
 	}
 	
-	public Product findByName(String name) {
-		Product product = productRepository.findByName(name);
-		return product;
-	}
-	
-	public void save(Product product) {
-		productRepository.save(product);
-	}
-	
-	public void deleteById(Long id) {
-		productRepository.deleteById(id);
-	}
+	public List<String> findBrands() {
+		  return productRepository.findDistinctBrands();
+		}
 
+		public List<String> findCategories() {
+		  return productRepository.findDistinctCategories();
+		}
+
+		public void save(Product product) {
+		  productRepository.save(product);
+		}
+
+		public void deleteById(long id) {
+		  productRepository.deleteById(id);
+		}
+
+		public List<Product> findByBrandAndOrCategory(String brand, String category) {
+		  List<Product> products = new ArrayList<>();
+		  if(category == null && brand == null) {
+		    products = productRepository.findAll();
+		  } else if(category == null) {
+		    products = productRepository.findByBrand(brand);
+		  } else if(brand == null) {
+		    products = productRepository.findByCategory(category);
+		  } else {
+		    products = productRepository.findByBrandAndCategory(brand, category);
+		  }
+		  return products;
+		}
 }

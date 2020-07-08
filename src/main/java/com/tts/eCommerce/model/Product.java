@@ -26,6 +26,9 @@ public class Product {
 	@NotBlank(message = "Product brand cannot be blank")
 	private String brand;
 	
+	@NotBlank(message = "Product category cannot be blank")
+	private String category;
+	
 	@PositiveOrZero(message = "Product cannot have a negative wholesale price")
 	private Double wholesalePrice; 
 	
