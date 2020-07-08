@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link th:replace="fragments/head">
+<meta charset="ISO-8859-1">
+<title>TTS eCommerce Site</title>
+</head>
+<body>
+
+<!-- Need to add custom navbar + test to see if thymeleaf works on this -->
+
+	<div class="container-fluid">
+		<div th:replace="fragments/navbar"></div>
+		<div class="row">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Image</th>
+						<th>Item</th>
+						<th>Quantity</th>
+						<th>Price</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="item : ${cart}" th:with="product=${item.key}">
+						<td><img th:src="${product.image}"/></td>
+						<td th:text="${product.name}"></td>
+						<td>
+							<input type="hidden" name="prodid" th:value="${product.id}" form="addItems" />
+                            <input type="number" name="prodquantity" min="0" th:value="${item.value}" form="addItems" />
+                        </td>
+                        <td th:if="${list.add(product.price * item.value)}" th:text="${#numbers.formatCurrency(product.price * item.value)}"></td>
+                        <td>
+							<form th:action="@{/cart}" method="post" style="display: inline">
+								<input type="hidden" name="id" th:value="${product.id}" />
+								<button class="btn btn-danger" style="display: inline" type="submit">Delete</button>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td>Total</td>
+						<td th:text="${#numbers.formatCurrency(#aggregates.sum(list))}"></td>
+					</tr>
+				</tfoot>
+			</table>
+			
+			<form th:action="@{/cart}" method="post" id="addItems" th:if="${cart.size() > 0}">
+				<button type ="submit" class="btn btn-success">Update Cart</button>
+			</form>
+			
+			<div th:if="${cart.size() == 0}">Nothing is in your cart yet!</div>
+			<div th:if="${cart.size() > 0}">Thanks for using our eCommerce site. If this was a real site, you'd be directed to make a payment now.</div>
+		</div>
+		
+		
+	
+	
+	</div>
+	<script th:replace="fragments/scripts"></script>
+</body>
+</html>
+	
