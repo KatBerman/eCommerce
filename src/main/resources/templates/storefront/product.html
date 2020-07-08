@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link th:replace="fragments/head">
+<meta charset="ISO-8859-1">
+<title>TTS eCommerce Site</title>
+</head>
+<body>
+
+<!-- Need to add custom navbar -->
+	<div class="container-fluid">
+		<div th:replace="fragments/navbar"></div>
+		
+		<div class="card" style="width: 18rem;">
+		
+			<img 
+			  	th:alt="${product.name}"
+		        th:src="@{${product.image}}"
+		        class="card-img"
+		        style="max-height: 100%; object-fit: cover;"/>
+			 <div class="card-body">
+				 <div class="card-title">
+				 	<h4 th:text="${product.name}" style="margin-bottom: 0;"></h4>
+			        <small th:text="${product.getBrand()}"></small>
+				 </div>
+				 <div class="card-text">
+				 	<h5 th:text="${#numbers.formatCurrency(product.price)}"></h5>
+				 	<p th:text="${product.description}"></p>
+				 </div>
+			</div>
+			
+			<!-- Not entirely sure if form action and button will work - test out later -->
+			
+			<form th:action="@{/cart}" th:object="${product}" method="post">
+				<input type="hidden" th:field="*{id}" />
+	            <button type="submit" class="btn btn-primary">
+	                  Add to Cart
+	            </button>
+			</form>
+			
+		</div>
+		  	  
+	</div>
+		
+	<script th:replace="fragments/scripts"></script>
+</body>
+</html>
