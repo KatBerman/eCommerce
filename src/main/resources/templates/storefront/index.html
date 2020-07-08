@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link th:replace="fragments/head">
+<meta charset="ISO-8859-1">
+<title>TTS eCommerce Site</title>
+</head>
+<body>
+
+<!-- Need to add custom navbar -->
+
+	<div class="container-fluid">
+		<div th:replace="fragments/navbar"></div>
+		<div class="jumbotron-fluid">
+			<h1>Welcome to our store.</h1>
+			<p>Take a look at the products below...</p>
+		</div>
+		
+		<!-- content pulled from twitter build for reference - need to fix thymeleaf probably -->
+		
+		<div class="list-group" th:each="product:${productList}">
+	      <div class="list-group-item list-group-item-action">
+	        <div class="d-flex w-100 justify-content-between">
+	          <h5>
+	            <a class="product" th:href="@{/product/}"> 
+	              <span th:text="${product.name}"></span> 
+	            </a>
+	          </h5>
+	          <small>Brand: <span th:utext="${product.brand}"></span></small>
+	          <small>Category: <span th:utext="${product.category}"></span></small>
+	          <small>Description: <span th:utext="${product.description}"></span></small>
+	          <small>Price: <span th:utext="${product.retailPrice}"></span></small>
+	          
+	          <!-- Need to add "add to cart" functionality to button -->
+	          <button class="btn btn-success btn-sm buy">Buy!</button>
+	        
+	        </div>
+	      </div>
+	    </div>
+	    
+	    <div th:if="${#lists.isEmpty(productList)}">
+	      <h3>No products are available for sale yet.</h3>
+	    </div>
+	</div>
+	<script th:replace="fragments/scripts"></script>
+</body>
+</html>
