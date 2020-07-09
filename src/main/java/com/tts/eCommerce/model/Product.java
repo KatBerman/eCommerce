@@ -146,6 +146,32 @@ public class Product {
 				+ ", image=" + image + "]";
 	}
 	
+	@Override
+	public int hashCode(){
+	  final int temp = 14;
+	  int ans = 1;
+	  ans = (int)(temp * ans + id);
+	  return ans;
+	}
+
+	@Override
+	public boolean equals(Object obj){
+	  if (this == obj) {
+	    return true;
+	  }
+	  if (obj == null) {
+	    return false;
+	  }
+	  if (this.getClass() != obj.getClass()) {
+	    return false;
+	  }
+	  Product other = (Product)obj;
+	  if (this.id != other.id) {
+	    return false;
+	  }
+	  return true;
+	}
+	
 	
 
 }

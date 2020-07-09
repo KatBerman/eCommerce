@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.tts.eCommerce.model.Cart;
 import com.tts.eCommerce.model.Product;
 import com.tts.eCommerce.repository.ProductRepository;
-import com.tts.eCommerce.repository.UserRepository;
 
 @Service
 public class CartService {
