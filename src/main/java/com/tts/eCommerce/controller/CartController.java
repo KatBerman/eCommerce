@@ -1,5 +1,7 @@
 package com.tts.eCommerce.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,28 +14,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tts.eCommerce.model.Cart;
 import com.tts.eCommerce.model.Product;
+import com.tts.eCommerce.service.CartService;
 import com.tts.eCommerce.service.ProductService;
 import com.tts.eCommerce.service.UserService;
 
 @Controller
 public class CartController {
+	
 	@Autowired
 	private ProductService productService;
 	
 	@Autowired
 	private UserService userService;
 	
-//	@Autowired
-//	private CartService cartService;
+	@Autowired
+	private CartService cartService;
 	
 	@GetMapping("/cart")
-	public String showCart() {
-	  return "storefront/cart";
+	public String showCart(Cart cart, Model model) {
+		model.addAttribute("cart", cart);
+		return "storefront/cart";
 	}
 	 
 	@PostMapping("/cart")
 	public String addToCart(@RequestParam long id) {
-	  Product product = productService.findById(id);
+	  Optional<Product> product = productService.findById(id);
 	  setQuantity(product, cart().getOrDefault(product, 0) + 1);
 	  return "storefront/cart";
 	}
@@ -41,7 +46,7 @@ public class CartController {
 	@PatchMapping("/cart")
 	public String updateQuantities(@RequestParam Long[] productId, @RequestParam Integer[] quantity) {
 	  for(int i = 0; i < productId.length; i++) {
-	      Product product = productService.findById(productId[i]);
+	     Optional<Product> product = productService.findById(productId[i]);
 	      setQuantity(product, quantity[i]);
 	  }
 	  return "storefront/cart";
@@ -57,16 +62,16 @@ public class CartController {
 
 	@DeleteMapping("/cart")
 	public String removeFromCart(@RequestParam long id) {
-	  Product product = productService.findById(id);
+	  Optional<Product> product = productService.findById(id);
 	  setQuantity(product, 0);
 	  return "storefront/cart";
 	}
 
-	private void setQuantity(Product p, int quantity) {
+	private void setQuantity(Optional<Product> product, int quantity) {
 	  if(quantity > 0){
-	    cart().put(p, quantity);
+	    cart().put(product, quantity);
 	  } else {
-	    cart().remove(p);
+	    cart().remove(product);
 	  }
 	  userService.updateCart(cart());
 	}
