@@ -1,7 +1,5 @@
 package com.tts.eCommerce.controller;
 
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +21,7 @@ public class ProductController {
 
 	@GetMapping("/products/{productId}")
 	public String show(@PathVariable Long id, Model model) {
-	  Optional<Product> product = productService.findById(id);
+	  Product product = productService.findProductById(id);
 	  model.addAttribute("product", product);
 	  return "storefront/product";
 	}

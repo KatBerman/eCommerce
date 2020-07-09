@@ -1,13 +1,9 @@
 package com.tts.eCommerce.controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,60 +15,38 @@ import com.tts.eCommerce.service.ProductService;
 import com.tts.eCommerce.service.UserService;
 
 @Controller
+@RequestMapping("/storefront")
 public class CartController {
-	
+
 	@Autowired
 	private ProductService productService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private CartService cartService;
-	
-	@GetMapping("/cart")
-	public String showCart(Cart cart, Model model) {
+
+	@PostMapping("/cart")
+	public String addToCart(@RequestParam Long productId, @RequestParam Integer quantity, Cart cart, Model model) {
+		cart = cartService.addLineItemToCart(cart, productId, quantity);
 		model.addAttribute("cart", cart);
 		return "storefront/cart";
 	}
-	 
+
 	@PostMapping("/cart")
-	public String addToCart(@RequestParam long id) {
-	  Optional<Product> product = productService.findById(id);
-	  setQuantity(product, cart().getOrDefault(product, 0) + 1);
-	  return "storefront/cart";
+	public String updateQuantity(@RequestParam Long productId, @RequestParam Integer quantity, Cart cart, Model model) {
+		Product product = productService.findProductById(productId);
+		cart = cartService.updateLineItemQuantity(cart, product, quantity);
+		model.addAttribute("cart", cart);
+		return "storefront/cart";
 	}
 
-	@PatchMapping("/cart")
-	public String updateQuantities(@RequestParam Long[] productId, @RequestParam Integer[] quantity) {
-	  for(int i = 0; i < productId.length; i++) {
-	     Optional<Product> product = productService.findById(productId[i]);
-	      setQuantity(product, quantity[i]);
-	  }
-	  return "storefront/cart";
-	}
 	
-	@RequestMapping("/storefront")
-		@GetMapping("/cart")
-		public String viewCart(Cart cart, Model model) {
-			model.addAttribute("cart", cart);
-			return "storefront/cart";
-		}
-	
-
-	@DeleteMapping("/cart")
-	public String removeFromCart(@RequestParam long id) {
-	  Optional<Product> product = productService.findById(id);
-	  setQuantity(product, 0);
-	  return "storefront/cart";
+	@GetMapping("/cart")
+	public String viewCart(Cart cart, Model model) {
+		model.addAttribute("cart", cart);
+		return "storefront/cart";
 	}
 
-	private void setQuantity(Optional<Product> product, int quantity) {
-	  if(quantity > 0){
-	    cart().put(product, quantity);
-	  } else {
-	    cart().remove(product);
-	  }
-	  userService.updateCart(cart());
-	}
 }

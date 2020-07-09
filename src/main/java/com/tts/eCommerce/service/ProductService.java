@@ -2,7 +2,6 @@ package com.tts.eCommerce.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +19,9 @@ public class ProductService {
 		return productRepository.findAll();
 	}
 	
-	public Optional<Product> findById(long id) {
-		return productRepository.findById(id);
+	public Product findProductById(Long id) {
+		Product product = productRepository.findProductById(id);
+		return product;
 	}
 	
 	public List<String> findBrands() {
