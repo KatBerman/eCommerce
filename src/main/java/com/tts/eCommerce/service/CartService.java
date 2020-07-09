@@ -29,7 +29,8 @@ public class CartService {
 		}
 
 		public Cart updateLineItemQuantity(Cart cart, Product product, Integer quantity){
-		  if (quantity > 0) {
+			List<HashMap<Product, Integer>> cartItems = cart.getLineItems();
+			if (quantity > 0) {
 		    cart.getLineItems().put(product, quantity);
 		  } else {
 		    cart.getLineItems().remove(product);
