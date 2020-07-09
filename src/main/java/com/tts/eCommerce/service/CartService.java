@@ -19,16 +19,16 @@ public class CartService {
 	
 	public Cart addLineItemToCart(Cart cart, Long productId, Integer quantity) {
 		  Optional<Product> productToAdd = productRepository.findById(productId);
-		  HashMap<Product, Integer> lineItemToAdd = new HashMap<>();
+		  HashMap<Optional<Product>, Integer> lineItemToAdd = new HashMap<>();
 		  lineItemToAdd.put(productToAdd, quantity);
-		  List<HashMap<Product, Integer>> cartItems = cart.getLineItems();
+		  List<HashMap<Optional<Product>, Integer>> cartItems = cart.getLineItems();
 		  cartItems.add(lineItemToAdd);
 		  cart.setLineItems(cartItems);
 		  return cart;
 		}
 
 		public Cart updateLineItemQuantity(Cart cart, Product product, Integer quantity){
-			List<HashMap<Product, Integer>> cartItems = cart.getLineItems();
+			List<HashMap<Optional<Product>, Integer>> cartItems = cart.getLineItems();
 			if (quantity > 0) {
 		    cart.getLineItems().put(product, quantity);
 		  } else {
