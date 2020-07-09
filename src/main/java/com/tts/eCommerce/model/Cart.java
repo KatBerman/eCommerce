@@ -30,6 +30,13 @@ public class Cart {
 
 	public void setSubTotal(Double subTotal) {
 		this.subTotal = subTotal;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "Cart [lineItems=" + lineItems + ", subTotal=" + subTotal + "]";
+	}
+	
+	
 
 }
