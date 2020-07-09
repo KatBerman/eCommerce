@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tts.eCommerce.model.Cart;
 import com.tts.eCommerce.model.Product;
 import com.tts.eCommerce.service.ProductService;
 
@@ -39,5 +41,13 @@ public class MainController {
 	  public String about() {
 	    return "storefront/about";
 	  }
+	  
+	  @RequestMapping("/storefront")
 
+		  @GetMapping("/")
+		  public String index(Model model) {
+			  model.addAttribute("cart", new Cart());
+			  return "storefront/index";
+		  }
+	  
 }
