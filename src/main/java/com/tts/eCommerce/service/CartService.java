@@ -34,6 +34,7 @@ public class CartService {
 		    cart.getLineItems().put(product, quantity);
 		  } else {
 		    cart.getLineItems().remove(product);
+		    
 		  }
 		  return cart;
 		}
