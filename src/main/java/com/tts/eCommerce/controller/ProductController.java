@@ -24,7 +24,7 @@ public class ProductController {
 	@GetMapping("/products/{productId}")
 	public String show(@PathVariable Long id, Model model) {
 	  Optional<Product> product = productService.findById(id);
-	  model.addAttribute(product);
+	  model.addAttribute("product", product);
 	  return "storefront/product";
 	}
 
