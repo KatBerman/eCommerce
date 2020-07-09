@@ -2,12 +2,15 @@ package com.tts.eCommerce.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tts.eCommerce.model.Cart;
 import com.tts.eCommerce.model.Product;
 import com.tts.eCommerce.service.ProductService;
 import com.tts.eCommerce.service.UserService;
@@ -19,6 +22,9 @@ public class CartController {
 	
 	@Autowired
 	private UserService userService;
+	
+//	@Autowired
+//	private CartService cartService;
 	
 	@GetMapping("/cart")
 	public String showCart() {
@@ -40,6 +46,14 @@ public class CartController {
 	  }
 	  return "storefront/cart";
 	}
+	
+	@RequestMapping("/storefront")
+		@GetMapping("/cart")
+		public String viewCart(Cart cart, Model model) {
+			model.addAttribute("cart", cart);
+			return "storefront/cart";
+		}
+	
 
 	@DeleteMapping("/cart")
 	public String removeFromCart(@RequestParam long id) {
