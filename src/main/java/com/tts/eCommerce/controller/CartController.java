@@ -38,8 +38,8 @@ public class CartController {
 
 	@PostMapping("/cart")
 	public String updateQuantity(@RequestParam Long productId, @RequestParam Integer quantity, @RequestParam Cart cart, Model model) {
-		Product product = productService.findProductById(productId);
-		cart = cartService.updateLineItemQuantity(cart, product, quantity);
+		/* Product product = productService.findProductById(productId); */
+		cart = cartService.updateLineItemQuantity(cart, productId, quantity);
 		model.addAttribute("cart", cart);
 		return "storefront/cart";
 	}

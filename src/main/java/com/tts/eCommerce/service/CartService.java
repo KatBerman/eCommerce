@@ -15,9 +15,12 @@ public class CartService {
 
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private ProductService productService;
 
 	public Cart addLineItemToCart(Cart cart, Long productId, Integer quantity) {
-		Product productToAdd = productRepository.findProductById(productId);
+		Product productToAdd = productService.findProductById(productId);
 		HashMap<Product, Integer> lineItemToAdd = new HashMap<>();
 		lineItemToAdd.put(productToAdd, quantity);
 		List<HashMap<Product, Integer>> cartItems = cart.getLineItems();
@@ -26,10 +29,11 @@ public class CartService {
 		return cart;
 	}
 
-	public Cart updateLineItemQuantity(Cart cart, Product product, Integer quantity){ 
+	public Cart updateLineItemQuantity(Cart cart, Long productId, Integer quantity){ 
+		Product productToUpdate = productService.findProductById(productId);
 		List<HashMap<Product, Integer>> cartItems = cart.getLineItems();
 		for (HashMap<Product, Integer> cartItem : cartItems) {
-			cartItem.replace(product, quantity);
+			cartItem.replace(productToUpdate, quantity);
 		}
 		cart.setLineItems(cartItems);
 		return cart;
