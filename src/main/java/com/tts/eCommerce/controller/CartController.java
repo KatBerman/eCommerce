@@ -23,21 +23,21 @@ public class CartController {
 	@Autowired
 	private CartService cartService;
 	
-	@GetMapping("/cart")
+	@GetMapping("/storefront/cart")
 	public String viewCart(Cart cart, Model model) {
 		model.addAttribute("cart", cart);
 		return "storefront/cart";
 	}
 
 	@PostMapping("/storefront/cart")
-	public String addToCart(@RequestParam Long productId, @RequestParam Integer quantity, Cart cart, Model model) {
+	public String addToCart(@RequestParam Long productId, @RequestParam Integer quantity, @RequestParam Cart cart, Model model) {
 		cart = cartService.addLineItemToCart(cart, productId, quantity);
 		model.addAttribute("cart", cart);
 		return "storefront/cart";
 	}
 
-	@PostMapping("/storefront/cart")
-	public String updateQuantity(@RequestParam Long productId, @RequestParam Integer quantity, Cart cart, Model model) {
+	@PostMapping("/cart")
+	public String updateQuantity(@RequestParam Long productId, @RequestParam Integer quantity, @RequestParam Cart cart, Model model) {
 		Product product = productService.findProductById(productId);
 		cart = cartService.updateLineItemQuantity(cart, product, quantity);
 		model.addAttribute("cart", cart);
