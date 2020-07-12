@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TTS eCommerce Site</title>
+<link th:replace="fragments/head">
+</head>
+<body>
+<body>
+  <div class="container-fluid">
+    <h2>Welcome! Log In Below:</h2>
+    <form th:action="@{/login}" method="post" class="form-group">
+      <input type="text" id="user" name="user"
+        th:placeholder="User" class="form-control"> 
+      <input
+        type="password" th:placeholder="Password" id="password"
+        name="password" class="form-control">
+      <div align="center" th:if="${param.error}">
+        <h4 style="color: red;">Login unsuccessful</h4>
+      </div>
+      <button class="btn btn-sm btn-success btn-block" name="Submit"
+        value="Login" type="submit">Log in</button>
+    </form>
+  </div>
+  
+
+<script th:replace="fragments/scripts"></script>
+</body>
+</html>

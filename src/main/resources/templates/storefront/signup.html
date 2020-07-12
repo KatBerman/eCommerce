@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TTS eCommerce Site</title>
+<link th:replace="fragments/head">
+</head>
+<body>
+<body>
+ 
+  <section class="container-fluid">
+  	<h2>Sign Up to Complete Order!</h2>
+  		<section class="row">
+  			<section class="col-12 col-sm-6 col-md3">
+  				<form th:action="@{/signup}" th:object="${user}" method="post" autocomplete="off">
+			      <div class="form-group">
+			      
+			        <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="validation-message"></label>
+			        <input type="text" th:field="*{firstName}" placeholder="First Name" class="form-control" />
+			        
+			        <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="validation-message"></label>
+			        <input type="text" th:field="*{lastName}" placeholder="Last Name" class="form-control" />
+			        
+			        <label th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="validation-message"></label>
+			        <input type="text" th:field="*{username}" placeholder="Username" class="form-control" />
+			        
+			        <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-message"></label>
+			        <input type="text" th:field="*{email}" placeholder="Email" class="form-control" />
+			      	<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+			      	
+			        <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="validation-message"></label>
+			        <input type="password" th:field="*{password}" placeholder="Password" class="form-control" />
+			      </div>
+			      <button class="btn btn-sm btn-success btn-block" name="Submit" value="submit" type="submit" th:text="Signup"></button>
+			    </form>
+  			</section>
+  		</section>
+  </section>
+  
+<script th:replace="fragments/scripts"></script>
+</body>
+</html>
