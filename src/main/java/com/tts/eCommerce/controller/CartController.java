@@ -12,7 +12,6 @@ import com.tts.eCommerce.model.Cart;
 import com.tts.eCommerce.model.Product;
 import com.tts.eCommerce.service.CartService;
 import com.tts.eCommerce.service.ProductService;
-import com.tts.eCommerce.service.UserService;
 
 @Controller
 @RequestMapping("/storefront")
@@ -22,19 +21,22 @@ public class CartController {
 	private ProductService productService;
 
 	@Autowired
-	private UserService userService;
-
-	@Autowired
 	private CartService cartService;
+	
+	@GetMapping("/cart")
+	public String viewCart(Cart cart, Model model) {
+		model.addAttribute("cart", cart);
+		return "storefront/cart";
+	}
 
-	@PostMapping("/cart")
+	@PostMapping("/storefront/cart")
 	public String addToCart(@RequestParam Long productId, @RequestParam Integer quantity, Cart cart, Model model) {
 		cart = cartService.addLineItemToCart(cart, productId, quantity);
 		model.addAttribute("cart", cart);
 		return "storefront/cart";
 	}
 
-	@PostMapping("/cart")
+	@PostMapping("/storefront/cart")
 	public String updateQuantity(@RequestParam Long productId, @RequestParam Integer quantity, Cart cart, Model model) {
 		Product product = productService.findProductById(productId);
 		cart = cartService.updateLineItemQuantity(cart, product, quantity);
@@ -42,11 +44,5 @@ public class CartController {
 		return "storefront/cart";
 	}
 
-	
-	@GetMapping("/cart")
-	public String viewCart(Cart cart, Model model) {
-		model.addAttribute("cart", cart);
-		return "storefront/cart";
-	}
 
 }

@@ -14,12 +14,13 @@ import com.tts.eCommerce.model.Product;
 import com.tts.eCommerce.service.ProductService;
 
 @Controller
+@RequestMapping("/storefront")
 public class MainController {
 	
 	@Autowired
 	private ProductService productService;
 	
-	 @GetMapping(value = {"/", "/home"})
+	 @GetMapping(value = {"/", "/index"})
 	  public String home(Model model) {
 	    model.addAttribute("products", productService.findAll());
 	    model.addAttribute("categories", productService.findCategories());
@@ -37,17 +38,11 @@ public class MainController {
 	    return "storefront/index";
 	  }
 	  
-	  @GetMapping("/about")
-	  public String about() {
-	    return "storefront/about";
-	  }
-	  
-	  @RequestMapping("/storefront")
 
-		  @GetMapping("/")
-		  public String index(Model model) {
-			  model.addAttribute("cart", new Cart());
-			  return "storefront/index";
-		  }
+	  @GetMapping("/")
+	  public String index(Model model) {
+		  model.addAttribute("cart", new Cart());
+		  return "storefront/index";
+	  }
 	  
 }
