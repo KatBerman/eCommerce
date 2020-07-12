@@ -19,14 +19,14 @@ public class AuthorizationController {
 
 	@GetMapping(value = "/login")
 	public String login() {
-		return "login";
+		return "storefront/login";
 	}
 
 	@GetMapping(value = "/signup")
 	public String registration(Model model) {
 		User user = new User();
 		model.addAttribute("user", user);
-		return "signup";
+		return "storefront/signup";
 	}
 
 	@PostMapping(value = "/signup")
@@ -40,6 +40,6 @@ public class AuthorizationController {
 			model.addAttribute("success", "Sign up successful!");
 			model.addAttribute("user", new User());
 		}
-		return "signup";
+		return "storefront/signup";
 	}
 }
