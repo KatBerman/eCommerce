@@ -26,10 +26,10 @@ public class ProductController {
 	  return "storefront/product";
 	}
 
-	@RequestMapping(value = {"/products/new", "/products/{productId}/edit"}, method = {RequestMethod.POST, RequestMethod.PUT })
-	public String createOrUpdate(@Valid Product product) {
-	  productService.save(product);
-	  return "redirect:/storefront/products/" + product.getId();
-	}
-
+	/*
+	 * @RequestMapping(value = {"/products/new", "/products/{productId}/edit"},
+	 * method = {RequestMethod.POST, RequestMethod.PUT }) public String
+	 * createOrUpdate(@Valid Product product) { productService.save(product); return
+	 * "redirect:/storefront/products/" + product.getId(); }
+	 */
 }
