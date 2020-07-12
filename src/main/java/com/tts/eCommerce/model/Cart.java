@@ -3,6 +3,9 @@ package com.tts.eCommerce.model;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Cart {
 	
 	private List<HashMap<Product, Integer>> lineItems;
