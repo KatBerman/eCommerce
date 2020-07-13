@@ -12,8 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class User {
@@ -22,11 +26,25 @@ public class User {
 	@Column(name="user.id")
 	private Long id;
 	
+	@Email(message = "Please provide a valid email address")
+	@NotEmpty(message = "Email cannot be left blank")
 	private String email;
+	
+	@NotEmpty(message = "First name cannot be left blank")
 	private String firstName;
+	
+	@NotEmpty(message = "Last name cannot be left blank")
 	private String lastName;
+	
+	@Length(min = 4, message = "Username must be at least 4 characters")
+	@Length(max = 20, message = "Username cannot exceed 20 characters")
+	@Pattern(regexp = "[^\\s]+", message = "Username cannot contain spaces")
 	private String username;
+	
+	@Length(min = 4, message = "Password must be at least 4 characters")
 	private String password;
+	
+	private Integer active;
 	
 	@CreationTimestamp
 	private Date createdAt;
@@ -37,14 +55,14 @@ public class User {
 
 	public User() {	}
 
-	public User(Long id, String email, String firstName, String lastName, String username, String password,
+	public User(String email, String firstName, String lastName, String username, String password, Integer active,
 			Date createdAt, Set<Role> roles) {
-		this.id = id;
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
 		this.password = password;
+		this.active = active;
 		this.createdAt = createdAt;
 		this.roles = roles;
 	}
@@ -89,6 +107,14 @@ public class User {
 		this.password = password;
 	}
 
+	public Integer getActive() {
+		return active;
+	}
+
+	public void setActive(Integer active) {
+		this.active = active;
+	}
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -108,5 +134,13 @@ public class User {
 	public Long getId() {
 		return id;
 	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", username=" + username + ", password=" + password + ", active=" + active + ", createdAt="
+				+ createdAt + ", roles=" + roles + "]";
+	}
+
 	
 }
