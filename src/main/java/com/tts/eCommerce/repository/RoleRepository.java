@@ -7,6 +7,7 @@ import com.tts.eCommerce.model.Role;
 
 @Repository
 public interface RoleRepository extends CrudRepository<Role, Long> {
-	Role findByRole(String role);
+	
+	public Role findByRole(String role);
 
 }
