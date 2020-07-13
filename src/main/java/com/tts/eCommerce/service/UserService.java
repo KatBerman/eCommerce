@@ -16,20 +16,16 @@ import com.tts.eCommerce.repository.UserRepository;
 
 @Service
 public class UserService {
-	@Autowired
+	
 	private UserRepository userRepository;
-
-	@Autowired
 	private RoleRepository roleRepository;
-
-	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Autowired
 	public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
-	  this.userRepository = userRepository;
-	  this.roleRepository = roleRepository;
-	  this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
 	public User findByUsername(String username) {
