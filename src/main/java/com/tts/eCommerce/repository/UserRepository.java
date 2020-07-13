@@ -9,7 +9,8 @@ import com.tts.eCommerce.model.User;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
-	User findByUsername(String username);
-	List<User> findUsersByRole(String role);
-	User findByEmail(String email);
+	
+	public User findByUsername(String username);
+	public List<User> findUsersByRole(String role);
+	public User findByEmail(String email);
 }
