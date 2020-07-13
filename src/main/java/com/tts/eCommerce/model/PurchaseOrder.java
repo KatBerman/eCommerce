@@ -18,7 +18,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "orders")
-public class Order {
+public class PurchaseOrder {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,9 +40,9 @@ public class Order {
 	
 	private Double total;
 
-	public Order() {}
+	public PurchaseOrder() {}
 
-	public Order(List<HashMap<Product, Integer>> orderItem, User user, Date createdAt, Double subtotal, Double tax,
+	public PurchaseOrder(List<HashMap<Product, Integer>> orderItem, User user, Date createdAt, Double subtotal, Double tax,
 			Double total) {
 		this.orderItem = orderItem;
 		this.user = user;

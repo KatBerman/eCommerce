@@ -4,16 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tts.eCommerce.model.Cart;
-import com.tts.eCommerce.model.Order;
-import com.tts.eCommerce.repository.OrderRepository;
+import com.tts.eCommerce.model.PurchaseOrder;
+import com.tts.eCommerce.repository.PurchaseOrderRepository;
 
 @Service
-public class OrderService {
+public class PurchaseOrderService {
 	
 	@Autowired
-	private OrderRepository orderRepository;
+	private PurchaseOrderRepository purchaseOrderRepository;
 	
-	public Order makePurchase(Cart cart) {
+	public PurchaseOrder makePurchase(Cart cart) {
 		//Need code here - not sure what the method would be
 		return null;
 	}
